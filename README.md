@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 ```
 
 
-```python
+```latex
 $$\int_{a}^{b}f(x)dx$$
 
 ```
