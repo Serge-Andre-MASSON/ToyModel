@@ -1,0 +1,6 @@
+graft data
+graft direct_problem
+graft inverse_problem
+graft plotter
+
+global-exclude *.pyc

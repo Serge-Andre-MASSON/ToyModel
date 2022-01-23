@@ -1,0 +1,1 @@
+from inverse_problem.inverse_problem import get_optimized_model, fit

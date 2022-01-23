@@ -1,0 +1,14 @@
+# venv
+.toy_model
+
+# pytest
+.pytest_cache
+
+# ipynb
+.ipynb_checkpoints
+
+# Local installation
+toy_model.egg-info
+
+# pdf
+*.pdf
