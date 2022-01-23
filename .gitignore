@@ -12,3 +12,6 @@ toy_model.egg-info
 
 # pdf
 *.pdf
+
+# html
+*.html
