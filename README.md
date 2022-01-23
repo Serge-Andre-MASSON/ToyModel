@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 ```
 
 
-![$$\int_{a}^{b}f(x)dx$$](https://latex.codecogs.com/svg.image?$$%5Cint_%7Ba%7D%5E%7Bb%7Df(x)dx$$)
+![\int_{a}^{b}f(x)dx](https://latex.codecogs.com/svg.image?%5Cint_%7Ba%7D%5E%7Bb%7Df(x)dx)
 
 
 ```python
