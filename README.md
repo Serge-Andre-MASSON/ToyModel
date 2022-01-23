@@ -11,9 +11,7 @@ import matplotlib.pyplot as plt
 ```
 
 
-```latex
-$$\int_{a}^{b}f(x)dx$$
-
+<img src="https://latex.codecogs.com/svg.image?$$\int_{a}^{b}f(x)dx$$" title="$$\int_{a}^{b}f(x)dx$$" />
 ```
 
 
