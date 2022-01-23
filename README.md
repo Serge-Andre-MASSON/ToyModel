@@ -9,7 +9,12 @@ from inverse_problem.inverse_problem import get_optimized_model
 import matplotlib.pyplot as plt
 
 ```
+
+
+```python
 $$\int_{a}^{b}f(x)dx$$
+
+```
 
 
 ```python
