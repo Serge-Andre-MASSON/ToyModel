@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
 from direct_problem import ToyProblem
 
@@ -23,6 +24,8 @@ class CSFTSolver():
 
         self.set_derivative_matrix()
         self.set_coupling_terms()
+
+        self.is_solved = False
 
     def set_derivative_matrix(self):
         delta_t = self.grid.delta_t
@@ -59,6 +62,7 @@ class CSFTSolver():
         self.coupling_term_for_v = self.toy_problem.b * self.grid.delta_t
 
     def solve(self):
+        self.is_solved = True
         for j in range(1, len(self.grid.t)):
             self.u[1:-1, j] = np.dot(self.u_solving_matrix, self.u[:, j-1]) \
                 - self.coupling_term_for_u * self.v[1:-1, j-1]
@@ -66,3 +70,24 @@ class CSFTSolver():
                 - self.coupling_term_for_v * self.u[1:-1, j-1]
 
         return self.u, self.v
+
+    def plot(self, notebook=False):
+        if self.is_solved:
+            u, v = self.u, self.v
+        else:
+            u, v = self.solve()
+
+        X, T = self.toy_problem.grid.meshed_grid()
+
+        fig = plt.figure(figsize=(15, 15))
+        u_ax = fig.add_subplot(121, projection="3d")
+        v_ax = fig.add_subplot(122, projection="3d")
+
+        u_ax.set_title("$u$")
+        v_ax.set_title("$v$")
+
+        u_ax.plot_surface(X, T, u)
+        v_ax.plot_surface(X, T, v)
+
+        if not notebook:
+            return fig
