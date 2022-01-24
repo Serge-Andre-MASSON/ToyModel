@@ -3,8 +3,30 @@ import numpy as np
 
 
 class Coordinates():
-    def __init__(self) -> None:
-        pass
+    def __init__(self, grid: Grid) -> None:
+        self.grid = grid
+        self.coordinates = grid.coordinates
+        self.X = None
+        self.T = None
+
+    def get_random_coordinates(self, sample_size: int):
+        coordinates_len = len(self.grid.coordinates)
+
+        sample_indexes = np.random.choice(
+            coordinates_len,
+            size=sample_size,
+            replace=False
+        )
+
+        x = np.array(
+            [self.coordinates[i][0] for i in sample_indexes]
+        )
+        t = np.array(
+            [self.coordinates[i][1] for i in sample_indexes]
+        )
+        self.X, self.T = x, t
+
+        return x, t
 
 
 class RandomCoordinates(Coordinates):
@@ -31,21 +53,3 @@ class RandomCoordinates(Coordinates):
         )
 
         return x, t
-
-    def choose_coordinate_from_a_spatial_domain(self, grid: Grid, size):
-        start = len(grid.x) // 4
-        x = np.random.choice(
-            grid.x[start:-start],
-            size=size,
-            # replace=False,
-        )
-
-        t = np.random.choice(
-            grid.t,
-            size=size,
-            # replace=False,
-        )
-        return x, t
-
-    def gaussian(self, x, sigma, mu):
-        return np.exp(-(x - mu)**2/(2 * sigma**2)) / np.sqrt(2*np.pi * sigma**2)

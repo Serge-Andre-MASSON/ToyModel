@@ -22,8 +22,11 @@ class DataGenerator():
         self.parameters = parameters
         self.solution_at_t_equal_zero = solution_at_t_equal_zero
         self.test_parameters_size = int(self.parameters.parameters_size // 5)
+        self.is_generated = False
+        self.solutions_array = None
 
     def generate_data(self):
+        self.is_generated = True
         toy_problem = ToyProblem(0, 0, 0, 0, self.solution_at_t_equal_zero)
         toy_problem.set_grid(self.grid)
         toy_problem.init_boundaries()
@@ -40,8 +43,8 @@ class DataGenerator():
             u = CSFTSolver(toy_problem).solve()[0]
             solution_values.append([u[self.grid.index_of_x(X[k]),
                                       self.grid.index_of_t(T[k])] for k in range(len(X))])
-
-        return np.array(solution_values, dtype=np.float64)
+        self.solutions_array = np.array(solution_values, dtype=np.float64)
+        return self.solutions_array
 
     def split(self, array: ndarray, here: int):
         train_data = array[here:]
@@ -49,7 +52,10 @@ class DataGenerator():
         return train_data, test_data
 
     def dataset(self):
-        solutions_array = self.generate_data()
+        if not self.is_generated:
+            solutions_array = self.generate_data()
+        else:
+            solutions_array = self.solutions_array
         x_train, x_test = self.split(
             solutions_array, self.test_parameters_size)
         y_train, y_test = self.split(
