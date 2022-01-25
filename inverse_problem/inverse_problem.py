@@ -9,7 +9,10 @@ class InverseProblem(nn.Module):
     def __init__(self, sample_size):
         super().__init__()
         self.lin = nn.Sequential(
-            nn.Linear(sample_size, 10),
+            nn.Linear(sample_size, 50),
+            nn.ReLU(),
+            nn.Linear(50, 10),
+            nn.ReLU(),
             nn.Linear(10, 4)
         )
 
@@ -35,7 +38,7 @@ def loss_batch(model: InverseProblem, loss_func, xb, yb, opt: Adam = None):
     return loss.item(), len(xb)
 
 
-def fit(model: InverseProblem, train_dl, valid_dl, epochs, opt, loss_func=nn.MSELoss()):
+def fit(model: InverseProblem, train_dl, valid_dl, epochs, opt=Adam, loss_func=nn.MSELoss()):
     # State of things before fitting
     with torch.no_grad():
         losses, nums = zip(
