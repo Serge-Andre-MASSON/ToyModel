@@ -16,6 +16,7 @@ class Grid():
         self.coordinates = np.array(
             [[x, t] for x in self.x for t in self.t]
         )
+        self.sample = None
 
     @property
     def shape(self):
@@ -44,6 +45,7 @@ class Grid():
         t = np.array(
             [self.coordinates[i][1] for i in sample_indexes]
         )
+        self.sample = x, t
 
         return x, t
 

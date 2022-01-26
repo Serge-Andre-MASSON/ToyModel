@@ -1,6 +1,6 @@
 import numpy as np
 
-from data import DataGenerator, RandomCoordinates, RandomParameters
+from data import DataGenerator, RandomParameters
 from direct_problem import Grid
 
 x_min = 0
@@ -22,14 +22,7 @@ parameter_size = 50
 def solution_at_t_equal_zero(x): return np.maximum(x-2, 0)
 
 
-coordinates = RandomCoordinates(grid, sample_size)
 parameters = RandomParameters(parameters_size=parameter_size)
 
-data_generator = DataGenerator(coordinates=coordinates, parameters=parameters,
+data_generator = DataGenerator(grid=grid, parameters=parameters,
                                solution_at_t_equal_zero=solution_at_t_equal_zero)
-
-
-def test_x_and_t_coordinates():
-    data_generator.generate_data()
-    assert len(data_generator.coordinates.X) == sample_size
-    assert len(data_generator.coordinates.T) == sample_size

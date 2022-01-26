@@ -3,11 +3,11 @@ from numpy import ndarray, double
 from torch import tensor
 from torch.utils.data.dataset import TensorDataset
 from torch.utils.data.dataloader import DataLoader
+from direct_problem.grid import Grid
 
 from direct_problem.problem import ToyProblem
 from direct_problem.solver import CSFTSolver
 
-from data import RandomCoordinates
 from data import RandomParameters
 
 
@@ -16,9 +16,9 @@ from data import RandomParameters
 # dimensions supérieures à deux.
 
 class DataGenerator():
-    def __init__(self, coordinates: RandomCoordinates, parameters: RandomParameters, solution_at_t_equal_zero) -> None:
-        self.grid = coordinates.grid
-        self.coordinates = coordinates
+    def __init__(self, grid: Grid, parameters: RandomParameters, solution_at_t_equal_zero) -> None:
+        self.grid = grid
+        self.coordinates = grid.sample
         self.parameters = parameters
         self.solution_at_t_equal_zero = solution_at_t_equal_zero
         self.test_parameters_size = int(self.parameters.parameters_size // 5)
@@ -31,8 +31,9 @@ class DataGenerator():
         toy_problem.set_grid(self.grid)
         toy_problem.init_boundaries()
 
-        X = self.coordinates.X
-        T = self.coordinates.T
+        # X = self.coordinates.X
+        # T = self.coordinates.T
+        X, T = self.grid.sample
         solution_values = []
 
         # Ce code ne s'applique que dans le cas où
