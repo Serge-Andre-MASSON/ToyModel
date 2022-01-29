@@ -47,7 +47,7 @@ def fit(model: InverseProblem, train_dl, valid_dl, epochs, opt=Adam, loss_func=n
 
     val_loss = np.sum(np.multiply(losses, nums)) / np.sum(nums)  # ???
     print(
-        f"Average validation loss before fit: {val_loss}"
+        f"Average validation loss before training: {val_loss}"
     )
 
     loss_array = [val_loss]
@@ -66,6 +66,6 @@ def fit(model: InverseProblem, train_dl, valid_dl, epochs, opt=Adam, loss_func=n
 
         loss_array.append(val_loss)
     print(
-        f"Average validation loss: {val_loss}"
+        f"Average validation loss after training: {val_loss}"
     )
     return np.array(loss_array)
